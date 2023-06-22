@@ -2,7 +2,6 @@ resource "libvirt_network" "vlan_network" {
   autostart = true
   name      = "example"
   mode      = "bridge"
-  domain    = "cluster.io"
   bridge    = "br0"
 }
 
