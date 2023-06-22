@@ -1,6 +1,6 @@
 resource "libvirt_volume" "ubuntu_qcow2" {
   name             = "vm1"
-  pool             = "example"
+  # pool             = "example"
   base_volume_name = "base_image"
   size             = 10 * 1073741824
   format           = "qcow2"
@@ -8,7 +8,7 @@ resource "libvirt_volume" "ubuntu_qcow2" {
 
 resource "libvirt_cloudinit_disk" "commoninit" {
   name = "vm1_commoninit.iso"
-  pool = "example"
+  # pool = "example"
   user_data = templatefile("./templates/cloud_init.tftpl",
     {
       hostname = "vm1"
