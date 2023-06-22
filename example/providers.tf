@@ -7,5 +7,5 @@ terraform {
 }
 
 provider "libvirt" {
-  uri = "qemu+ssh://lab2/system" 
+  uri = "qemu:///system" 
 }
