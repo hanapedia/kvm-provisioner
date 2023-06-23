@@ -27,8 +27,14 @@ resource "libvirt_domain" "ubuntu_domain" {
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   network_interface {
-    network_name   = "example"
+    network_name   = "default"
+    hostname       = "vm1"
     wait_for_lease = true
+    #   addresses      = var.network_interface_address
+  }
+
+  network_interface {
+    network_name   = "example"
     hostname       = "vm1"
     #   addresses      = var.network_interface_address
   }
