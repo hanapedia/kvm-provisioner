@@ -1,13 +1,20 @@
+// virtual network to expose vms to vlan
 resource "libvirt_network" "vlan_network" {
   autostart = true
-  name      = "${var.namespace}-${var.version}"
+  name      = "${var.namespace}-bridge"
   mode      = "bridge"
-  domain    = var.domain
   bridge    = var.bridge
 }
 
-resource "libvirt_pool" "kvm_pool" {
-  name = "${var.namespace}-${var.version}"
-  type = "dir"
-  path = pathexpand("~/.kvm/${var.namespace}-${var.version}")
+// virtual network for internet accessiblitiy via host
+resource "libvirt_network" "vnet_network" {
+  autostart = true
+  name      = "${var.namespace}-nat"
+  mode      = "nat"
+
+  addresses = ["${var.vnet.gateway}/${var.vnet.cidr}"]
+
+  dns {
+    enabled = true
+  }
 }

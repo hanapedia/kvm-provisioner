@@ -1,29 +1,29 @@
 variable "libvirt_uri" {
   description = "uri for libvirt namespace"
   type        = string
-  # default     = "qemu+ssh://hanapedia@ubuntuhome/system"
+  default     = "qemu:///system"
 }
 
 variable "namespace" {
-  description = "name for libvirt resources"
+  description = "base name for the related resources"
   type        = string
-  # default     = "k8s"
-}
-
-variable "version" {
-  description = "version for libvirt resources"
-  type        = string
-  # default     = "k8s"
-}
-
-variable "domain" {
-  description = "domain name for local dns"
-  type        = string
-  # default = "k8s.local"
+  default     = "lab"
 }
 
 variable "bridge" {
   description = "bridge name connected to lan"
   type        = string
-  # default = "k8s.local"
+  default     = "br0"
+}
+
+variable "vnet" {
+  description = "vars for vnet"
+  type = object({
+    gateway = string
+    cidr    = number
+  })
+  default = {
+    gateway = "192.168.101.1"
+    cidr = 24
+  }
 }
