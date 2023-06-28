@@ -9,7 +9,7 @@ module "node" {
   source   = "./modules/domain"
   for_each = local.node_spec_map
 
-  vm_name     = each.key
+  name     = each.key
   namespace   = var.namespace
   base_img_id = libvirt_volume.ubuntu_base_img.id
   node_group  = each.value.node_group

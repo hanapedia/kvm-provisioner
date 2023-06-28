@@ -22,13 +22,22 @@ variable "node_configs" {
     name       = string
     node_group = string
   }))
-  default = [{
-    "small.lab2.vm1"  = "small"
-    "medium.lab2.vm2" = "medium"
-    "large.lab2.vm3"  = "large"
-  }]
+  default = [
+    {
+      name = "small-lab2-vm1"
+      node_group = "small"
+    },
+    {
+      name ="medium-lab2-vm2"
+      node_group = "medium"
+    },
+    {
+      name ="large-lab2-vm3"   
+      node_group = "large"
+    }
+  ]
 }
 
-local {
+locals {
   node_spec_map = { for config in var.node_configs : config.name => config }
 }
