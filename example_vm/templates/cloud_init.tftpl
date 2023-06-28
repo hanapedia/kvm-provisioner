@@ -14,9 +14,8 @@ users:
       - admin
     shell: /bin/bash
     lock_passwd: false
-    ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmVfljlPfTD/khDF8y1ky2ziK1M1Rmw7QG0mKJAA9R7 hiroki11hanada@gmail.com 
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/XzaLTM13DC9pvZNOq74rJ728n56V/Oqql+6TFKODo hiroki11hanada@gmail.com
+    ssh_import_id:
+      - gh:hanapedia
 growpart:
   ignore_growroot_disabled: false
   mode: auto
@@ -25,4 +24,19 @@ growpart:
 packages:
   - qemu-guest-agent
   - network-manager
+write_files:
+  - owner: root:root
+    path: /etc/netplan/60-vlan.yaml
+    permissions: '0644'
+    content: |
+      network:
+        version: 2
+        ethernets:
+          ens4:
+            dhcp4: true
+            dhcp4-overrides:
+              use-routes: false
+            renderer: NetworkManager
+runcmd:
+  - netplan apply
 final_message: "The system is up and running"
